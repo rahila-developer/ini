@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>I&I</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+    <link rel="stylesheet" href="./css/custom.css" />
+    <style>
+      #scroll-icon {
+        position: fixed;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 24px;
+        cursor: pointer;
+        z-index: -100;
+        transition: top 0.3s ease, transform 0.3s ease, color 0.3s ease;
+      }
+      /* Styling for the modals */
+      .modal-dialog.modal-md {
+        max-width: 580px; /* Adjust the width as needed */
+      }
+
+      .modal-header {
+        border: none;
+      }
+
+      .modal-content {
+        border-radius: 15px;
+      }
+
+      .modal-title {
+        font-size: 36px;
+        font-weight: bold;
+      }
+
+      .modal-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 2px;
+      }
+
+      .modal-body form {
+        width: 75%;
+      }
+
+      .modal-body .btn_primary {
+        width: 80%;
+      }
+
+      .form-control {
+        border-color: #b0d291;
+        text-align: center;
+        line-height: 2.2;
+        border-radius: 35px;
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .form-control:focus {
+        border-color: #b0d291;
+        box-shadow: 0 0 0 0.15rem #b0d291;
+      }
+
+      .form-control::placeholder {
+        color: #d2d8cd;
+      }
+
+      .modal-footer {
+        display: flex;
+        justify-content: center;
+      }
+
+      /* Success modal styling */
+      .success-modal .modal-content {
+        background-color: #b0d291;
+        color: #fff;
+      }
+
+      .success-message {
+        font-weight: bold;
+        font-size: 36px;
+        color: black;
+      }
+
+      .success-image {
+        width: 320px;
+        height: 301px;
+        object-fit: cover;
+        margin: 10px 0;
+      }
+
+      .success-text {
+        font-weight: bold;
+        font-size: 24px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div
+      class="modal fade"
+      id="myModal"
+      tabindex="-1"
+      aria-labelledby="myModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-md">
+        <div class="modal-content">
+          <div class="modal-header justify-content-end p-2">
+            <a
+              href=""
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              type="button"
+              class="close-btn"
+            >
+              <img src="./images/close-icon.png" alt="" />
+            </a>
+          </div>
+          <div class="modal-body">
+            <h5 class="modal-title mb-4" id="myModalLabel">Contact us</h5>
+
+            <form>
+              <!-- Name Field -->
+              <div class="mb-3 w-100">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  placeholder="Name"
+                />
+              </div>
+              <!-- Email Field -->
+              <div class="mb-3 w-100">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  placeholder="Email"
+                />
+              </div>
+              <!-- Message Field -->
+              <div class="mb-3 w-100">
+                <textarea
+                  class="form-control"
+                  id="message"
+                  rows="3"
+                  placeholder="Message"
+                ></textarea>
+              </div>
+
+              <div class="pb-5 pt-4 w-100">
+                <a
+                  class="btn_primary"
+                  href="#"
+                  data-bs-toggle="modal"
+                  data-bs-toggle="modal"
+                  data-bs-target="#successModal"
+                >
+                  <span class="btn-text">Send message</span>
+                  <img src="./images/send-icon.png" alt="" class="btn-logo" />
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div
+      class="modal fade success-modal"
+      id="successModal"
+      tabindex="-1"
+      aria-labelledby="successModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-md">
+        <div class="modal-content">
+          <div class="modal-header justify-content-end p-2">
+            <a
+              href=""
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              type="button"
+              class="close-btn"
+            >
+              <img src="./images/close-icon.png" alt="" />
+            </a>
+          </div>
+          <div class="modal-body success-message">
+            <div class="mb-2">Thank you, your message has been sent</div>
+            <img src="images/success-image.png" alt="" class="success-image" />
+            <div class="mb-4">Please expect a response shortly.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand">
+      <a class="navbar-brand" href="#">
+        <img src="./images/logo.png" alt="I&I" />
+      </a>
+      <div class="collapse navbar-collapse">
+        <div class="my-dv">
+          <ul class="navbar-nav me-auto mb-md-0 d-none d-md-flex">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Who we are</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">How we think</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">What we do</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">What will you get</a>
+            </li>
+          </ul>
+        </div>
+        <div class="ms-auto">
+          <a
+            class="btn_primary"
+            href="#"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          >
+            <span class="btn-text">Contact us</span>
+            <img src="./images/contact-icon.png" alt="" class="btn-logo" />
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div
+      id="scroll-icon"
+      class="bi bi-chevron-down arrow-down"
+      style="color: red"
+    ></div>
+
+    <main>
+      <section class="hero-section">
+        <div class="hero">
+          <div
+            class="hero-heading"
+            data-aos="fade-up"
+            data-aos-offset="50"
+            data-aos-delay="10"
+            data-aos-duration="1000"
+            data-aos-easing="ease-in-out"
+            data-aos-mirror="true"
+            data-aos-once="false"
+          >
+            <div class="hero-heading-start">Creative solutions</div>
+            <div class="hero-heading-center">for modern minds.</div>
+          </div>
+        </div>
+
+        <div
+          class="font-bold-24 d-flex justify-content-md-end"
+          data-aos="fade-up"
+          data-aos-offset="50"
+          data-aos-delay="10"
+          data-aos-duration="1000"
+          data-aos-easing="ease-in-out"
+          data-aos-mirror="true"
+          data-aos-once="false"
+        >
+          <div class="branding">
+            From strategic branding to advanced tech, we pave your digital
+            success.
+          </div>
+        </div>
+
+        <div class="innovate pt-4 mb-4 font-bold-24">
+          <div class="">Innovate</div>
+          <div class="flex-center">
+            <span class="icon-wrapper flex-center">
+              <img src="./images/Union.png" alt="" class="icon" />
+            </span>
+            <span class="icon-wrapper flex-center">
+              <img src="./images/Subtract.png" alt="" class="icon" />
+            </span>
+          </div>
+          <div class="">Inspire</div>
+        </div>
+
+        <div class="mb-2 d-flex d-md-none">
+          <div class="mx-auto tab-sticky-mob">
+            <div class="d-flex align-items-center custom-tab ">
+              <ul
+                class="nav nav-tabs rounded-tabs me-3"
+                id="myTab"
+                role="tablist"
+              >
+                <li class="nav-item" role="presentation">
+                  <a
+                    class="nav-link active"
+                    id="home-tab"
+                    data-bs-toggle="tab"
+                    href="#home"
+                    role="tab"
+                    aria-controls="home"
+                    aria-selected="true"
+                    >Home</a
+                  >
+                </li>
+                <li class="nav-item" role="presentation">
+                  <a
+                    class="nav-link"
+                    id="community-tab"
+                    data-bs-toggle="tab"
+                    href="#community"
+                    role="tab"
+                    aria-controls="community"
+                    aria-selected="false"
+                    >Community</a
+                  >
+                </li>
+                <li class="nav-item" role="presentation">
+                  <a
+                    class="nav-link"
+                    id="help-tab"
+                    data-bs-toggle="tab"
+                    href="#help"
+                    role="tab"
+                    aria-controls="help"
+                    aria-selected="false"
+                    >Help</a
+                  >
+                </li>
+              </ul>
+
+              <!-- Icon -->
+              <img
+                src="./images/discover-icon.png"
+                alt="Icon"
+                class="icon-img"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="who-section">
+        <div class="mb-4 d-none d-md-flex">
+          <div>
+           <a href="#wrap-brand"> <img src="images/icon.png" alt="" /></a>
+          </div>
+          <div class="mx-auto tab-sticky">
+            <div class="d-flex align-items-center custom-tab  ">
+              <ul
+                class="nav nav-tabs rounded-tabs me-3"
+                id="myTab"
+                role="tablist"
+              >
+                <li class="nav-item" role="presentation">
+                  <a
+                    class="nav-link active"
+                    id="home-tab"
+                    data-bs-toggle="tab"
+                    href="#home"
+                    role="tab"
+                    aria-controls="home"
+                    aria-selected="true"
+                    >Home</a
+                  >
+                </li>
+                <li class="nav-item" role="presentation">
+                  <a
+                    class="nav-link"
+                    id="community-tab"
+                    data-bs-toggle="tab"
+                    href="#community"
+                    role="tab"
+                    aria-controls="community"
+                    aria-selected="false"
+                    >Community</a
+                  >
+                </li>
+                <li class="nav-item" role="presentation">
+                  <a
+                    class="nav-link"
+                    id="help-tab"
+                    data-bs-toggle="tab"
+                    href="#help"
+                    role="tab"
+                    aria-controls="help"
+                    aria-selected="false"
+                    >Help</a
+                  >
+                </li>
+              </ul>
+
+              <!-- Icon -->
+              <img
+                src="./images/discover-icon.png"
+                alt="Icon"
+                class="icon-img"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="d-md-flex aaaaa"
+          data-aos="fade-up"
+          data-aos-offset="50"
+          data-aos-delay="10"
+          data-aos-duration="1000"
+          data-aos-easing="ease-in-out"
+          data-aos-mirror="true"
+          data-aos-once="false"
+        >
+          <div class="me-1">Who we are</div>
+          <div class="mx-0 mx-md-auto">
+            <div class="custom-text">
+              <p>Business solves at heart, norm challengers by nature.</p>
+              <p>
+                We are a dynamic collective soul, formed by diverse minds that
+                thrives on experience, dedication and the pursuit of a simple
+                mission:
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="d-md-flex who-heading"
+          data-aos="fade-up"
+          data-aos-offset="50"
+          data-aos-delay="10"
+          data-aos-duration="1000"
+          data-aos-easing="ease-in-out"
+          data-aos-mirror="true"
+          data-aos-once="false"
+        >
+          <div>
+            <p>
+              Bring your
+              <a class="btn_primary d-none d-md-flex mt-5" href="#">
+                <span class="btn-text">Discover us</span>
+                <img src="./images/discover-icon.png" alt="" class="btn-logo" />
+              </a>
+            </p>
+            <p>
+              vision
+              <img class="heading-icon" src="./images/heading-icon-1.png" /> to
+              life.
+            </p>
+          </div>
+        </div>
+
+        <div class="d-md-none d-flex pb-3 justify-content-center">
+          <a class="btn_primary" href="#" style="width: 250px">
+            <span class="btn-text">Discover us</span>
+            <img src="./images/discover-icon.png" alt="" class="btn-logo" />
+          </a>
+        </div>
+      </section>
+
+      <!-- Brand & Strategy  -->
+      <section
+        id="wrap-brand"
+        class="brand-section"
+        data-aos="fade-up"
+        data-aos-offset="50"
+        data-aos-delay="10"
+        data-aos-duration="1000"
+        data-aos-easing="ease-in-out"
+        data-aos-mirror="true"
+        data-aos-once="false"
+      >
+        <div
+          data-aos="fade-up"
+          data-aos-offset="50"
+          data-aos-delay="30"
+          data-aos-duration="1000"
+          data-aos-easing="ease-in-out"
+          data-aos-mirror="true"
+          data-aos-once="false"
+        >
+          <p>What we do</p>
+          <p>Brand Strategy</p>
+        </div>
+        <div
+          class="d-md-flex justify-content-end"
+          data-aos="fade-up"
+          data-aos-offset="50"
+          data-aos-delay="40"
+          data-aos-duration="1000"
+          data-aos-easing="ease-in-out"
+          data-aos-mirror="true"
+          data-aos-once="false"
+        >
+          <span class="brand-details">
+            Audio and data visua lisation marketing & communication plan social
+            media & advertising.
+          </span>
+        </div>
+        <div
+        class="progress-main h-auto d-block ms-auto"
+        >
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+            <span>01</span>
+            <a href="">
+            <img src="images/arrow-right.svg" class="img-fluid">
+          </a>
+          </div>
+        </div>
+        </div>
+      </section>
+
+      <section class="how-section">
+        <div class="row">
+          <!-- Column 1 -->
+          <div class="col-lg-3 col-12">
+            <div>How we think</div>
+          </div>
+          <!-- Column 2 -->
+          <div class="col-lg-9 col-12">
+            <ul class="accordion-ul">
+              <!-- Accordion Item 1 (Open by default) -->
+              <li class="accordion-li active" data-number="01">
+                <div>Kick off and project setup</div>
+              </li>
+              <div class="accordion-content">
+                Audits involve reviewing operations to ensure compliance and
+                identify improvements. Benchmarking compares performance against
+                industry standards to gauge competitiveness. Together, they
+                provide insights for optimizing strategies and enhancing
+                productivity.
+              </div>
+
+              <!-- Accordion Item 2 -->
+              <li class="accordion-li" data-number="02">
+                <div>Budget & strategic planning</div>
+              </li>
+              <div class="accordion-content">
+                Audits involve reviewing operations to ensure compliance and
+                identify improvements. Benchmarking compares performance against
+                industry standards to gauge competitiveness. Together, they
+                provide insights for optimizing strategies and enhancing
+                productivity.
+              </div>
+
+              <!-- Accordion Item 3 -->
+              <li class="accordion-li" data-number="03">
+                <div>Positioning & brand core3</div>
+              </li>
+              <div class="accordion-content">
+                <p>
+                  Audits involve reviewing operations to ensure compliance and
+                  identify improvements. Benchmarking compares performance
+                  against industry standards to gauge competitiveness. Together,
+                  they provide insights for optimizing strategies and enhancing
+                  productivity.
+                </p>
+              </div>
+
+              <li class="accordion-li" data-number="04">
+                <div>Design & brand exploration</div>
+              </li>
+              <div class="accordion-content">
+                <p>
+                  Audits involve reviewing operations to ensure compliance and
+                  identify improvements. Benchmarking compares performance
+                  against industry standards to gauge competitiveness. Together,
+                  they provide insights for optimizing strategies and enhancing
+                  productivity.
+                </p>
+              </div>
+
+              <li class="accordion-li" data-number="05">
+                <div>Website & content production</div>
+              </li>
+              <div class="accordion-content">
+                <p>
+                  Audits involve reviewing operations to ensure compliance and
+                  identify improvements. Benchmarking compares performance
+                  against industry standards to gauge competitiveness. Together,
+                  they provide insights for optimizing strategies and enhancing
+                  productivity.
+                </p>
+              </div>
+
+              <li class="accordion-li" data-number="06">
+                <div>Advertising & automation</div>
+              </li>
+              <div class="accordion-content">
+                <p>
+                  Audits involve reviewing operations to ensure compliance and
+                  identify improvements. Benchmarking compares performance
+                  against industry standards to gauge competitiveness. Together,
+                  they provide insights for optimizing strategies and enhancing
+                  productivity.
+                </p>
+              </div>
+
+              <li class="accordion-li" data-number="07">
+                <div>PR & events</div>
+              </li>
+              <div class="accordion-content">
+                <p>
+                  Audits involve reviewing operations to ensure compliance and
+                  identify improvements. Benchmarking compares performance
+                  against industry standards to gauge competitiveness. Together,
+                  they provide insights for optimizing strategies and enhancing
+                  productivity.
+                </p>
+              </div>
+
+              <li class="accordion-li" data-number="08">
+                <div>Web 3.0 & blockchain</div>
+              </li>
+              <div class="accordion-content">
+                <p>
+                  Audits involve reviewing operations to ensure compliance and
+                  identify improvements. Benchmarking compares performance
+                  against industry standards to gauge competitiveness. Together,
+                  they provide insights for optimizing strategies and enhancing
+                  productivity.
+                </p>
+              </div>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!--Marketing plan-->
+      <section class="marketing-section">
+        <div>
+          <div class="d-flex justify-content-center">
+            <div class="tabs">
+              <input type="radio" id="radio-1" name="tabs" checked />
+              <label class="tab" for="radio-1">Strategy & marketing plan</label>
+              <input type="radio" id="radio-2" name="tabs" />
+              <label class="tab" for="radio-2">Branding experience</label>
+              <input type="radio" id="radio-3" name="tabs" />
+              <label class="tab" for="radio-3"> Communication & elevation</label>
+              <span class="glider"></span>
+              </div>
+          </div>
+        </div>
+        <div class="market-research">
+          <div
+            class="d-flex flex-column flex-lg-row justify-content-center market-items"
+            data-aos="fade-up"
+            data-aos-offset="50"
+            data-aos-delay="10"
+            data-aos-duration="1000"
+            data-aos-easing="ease-in-out"
+            data-aos-mirror="true"
+            data-aos-once="false"
+            data-aos-anchor-placement="top-center"
+          >
+            <div class="market-research-container">
+              <p class="market-research-heading">
+                Market research and analysis
+              </p>
+            </div>
+
+            <div class="market-research-description-container">
+              <p class="market-research-description">
+                We will conduct comprehensive market research to understand the
+                target audience, identify competitors, and analyze current
+                market trends and opportunities.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="d-flex flex-column flex-lg-row justify-content-center market-items"
+            data-aos="fade-up"
+            data-aos-offset="50"
+            data-aos-delay="10"
+            data-aos-duration="1000"
+            data-aos-easing="ease-in-out"
+            data-aos-mirror="true"
+            data-aos-once="false"
+            data-aos-anchor-placement="top-center"
+          >
+            <div class="market-research-container">
+              <p class="market-research-heading">
+                Market research and analysis
+              </p>
+            </div>
+            <div class="market-research-description-container">
+              <p class="market-research-description">
+                We will conduct comprehensive market research to understand the
+                target audience, identify competitors, and analyze current
+                market trends and opportunities.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="d-flex flex-column flex-lg-row justify-content-center market-items"
+            data-aos="fade-up"
+            data-aos-offset="50"
+            data-aos-delay="10"
+            data-aos-duration="1000"
+            data-aos-easing="ease-in-out"
+            data-aos-mirror="true"
+            data-aos-once="false"
+          >
+            <div class="market-research-container">
+              <p class="market-research-heading">
+                Market research and analysis
+              </p>
+            </div>
+            <div class="market-research-description-container">
+              <p class="market-research-description">
+                We will conduct comprehensive market research to understand the
+                target audience, identify competitors, and analyze current
+                market trends and opportunities.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="d-flex flex-column flex-lg-row justify-content-center market-items"
+            data-aos="fade-up"
+            data-aos-offset="50"
+            data-aos-delay="10"
+            data-aos-duration="1000"
+            data-aos-easing="ease-in-out"
+            data-aos-mirror="true"
+            data-aos-once="false"
+          >
+            <div class="market-research-container">
+              <p class="market-research-heading">
+                Market research and analysis
+              </p>
+            </div>
+            <div class="market-research-description-container">
+              <p class="market-research-description">
+                We will conduct comprehensive market research to understand the
+                target audience, identify competitors, and analyze current
+                market trends and opportunities.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="d-flex flex-column flex-lg-row justify-content-center market-items"
+            data-aos="fade-up"
+            data-aos-offset="50"
+            data-aos-delay="10"
+            data-aos-duration="1000"
+            data-aos-easing="ease-in-out"
+            data-aos-mirror="true"
+            data-aos-once="false"
+          >
+            <div class="market-research-container">
+              <p class="market-research-heading">
+                Market research and analysis
+              </p>
+            </div>
+            <div class="market-research-description-container">
+              <p class="market-research-description">
+                We will conduct comprehensive market research to understand the
+                target audience, identify competitors, and analyze current
+                market trends and opportunities.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="d-flex justify-content-center market-journey"
+          data-aos="fade-up"
+          data-aos-offset="50"
+          data-aos-delay="10"
+          data-aos-duration="1000"
+          data-aos-easing="ease-in-out"
+          data-aos-mirror="true"
+          data-aos-once="false"
+        >
+          <p>
+            Let's begin <br />
+            the <img src="images/heading-icon.png" class="img-fluid" width="140" /> journey
+          </p>
+        </div>
+        <div class="d-flex justify-content-center discover-us">
+          <a class="btn_primary" href="#">
+            <span class="btn-text">Discover us</span>
+            <img src="./images/discover-icon.png" alt="" class="btn-logo" />
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer style="padding: 30px">
+      <div class="row">
+        <!-- Left Border Column -->
+        <div class="col-5 border-column d-none d-md-block">
+          <div class="footer-content">
+            <ul class="">
+              <li><a href="#">Mobile app</a></li>
+              <li><a href="#">Community</a></li>
+              <li><a href="#">Company</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Center Logo Column -->
+        <div class="col-2 logo-container">
+          <img src="images/logo.png" alt="" class="footer-logo" />
+        </div>
+
+        <!-- Right Border Column -->
+        <div class="col-5 border-column d-none d-md-block">
+          <div class="footer-content">
+            <ul>
+              <li><a href="#">Help desk</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Resources</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex d-md-none mt-3 justify-content-center footer-content">
+        <ul class="">
+          <li><a href="#">Mobile app</a></li>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">Company</a></li>
+          <li><a href="#">Help desk</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Resources</a></li>
+        </ul>
+      </div>
+
+      <div
+        class="d-flex flex-column align-items-center mt-5 pb-3 footer-social gap-3"
+      >
+        <div class="mb-3">
+          <a href=""><img src="./images/facebook.png" /></a>
+          <a href=""><img src="./images/youtube.png" /></a>
+          <a href=""><img src="./images/linkedin.png" /></a>
+        </div>
+        <p>&copy; <span>2024</span> I&I All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS and Popper.js CDN -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Function to add AOS attributes
+        function addAOSAttributes() {
+          const accordionItems = document.querySelectorAll(".accordion-li");
+          accordionItems.forEach((item, index) => {
+            item.setAttribute("data-aos", "fade-up");
+            item.setAttribute("data-aos-offset", "50");
+            item.setAttribute("data-aos-delay", (index * 20).toString());
+            item.setAttribute("data-aos-duration", "1000");
+            item.setAttribute("data-aos-easing", "ease-in-out");
+          });
+        }
+
+        // Call the function to add AOS attributes
+        addAOSAttributes();
+
+        // Initialize AOS
+        AOS.init();
+      });
+    </script>
+     <script>
+  
+      jQuery(document).ready(function(){
+         window.onscroll = function() {
+             if (window.pageYOffset >= 500){
+                 jQuery('.tab-sticky-mob').css({position: 'fixed', left:'0', right:'0', width:'fit-content'});
+             }
+             else {
+                 jQuery('.tab-sticky-mob').css({position: ''});
+             }
+         }
+      });
+      
+         </script>
+     <script>
+      jQuery(document).ready(function(){
+   window.onscroll = function() {
+       if (window.pageYOffset >= 400){
+           jQuery('.tab-sticky').css({position: 'fixed',left:'40px',right:'0',width:'fit-content', bottom: '30px'});
+       }
+       else {
+           jQuery('.tab-sticky').css({position: '', bottom: ''});
+       }
+   }
+});
+ </script>
+   
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var accItems = document.querySelectorAll(".accordion-li");
+
+        accItems.forEach(function (item) {
+          item.addEventListener("click", function () {
+            // Toggle active class on clicked item
+            accItems.forEach(function (li) {
+              if (li === item) {
+                li.classList.toggle("active");
+              } else {
+                li.classList.remove("active");
+              }
+            });
+          });
+        });
+      });
+    </script>
+   
+  </body>
+</html>
